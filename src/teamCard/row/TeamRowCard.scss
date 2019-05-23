@@ -1,0 +1,5 @@
+.team-row-card {
+  &:not(:last-of-type) {
+    border-bottom: 1px solid #c8bbbb5e;
+  }
+}
