@@ -4,17 +4,29 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 
-  &__panes {
-    height: 100%;
+  header {
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 99;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 2px 0 rgba(#000, 0.1);
 
-    .menu {
+    .ui.secondary.pointing.menu {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-evenly;
 
       &:after {
         content: none;
       }
+    }
+
+    .ui.secondary.pointing.menu .active.item {
+      border-color: #111eff;
+      color: #111eff;
     }
   }
 }

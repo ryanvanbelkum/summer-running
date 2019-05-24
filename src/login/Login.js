@@ -18,7 +18,7 @@ const Login = ({isAuthed}) => {
     };
 
     return (
-        <div>
+        <div className="login">
             <Button
                 className="login__button"
                 fluid

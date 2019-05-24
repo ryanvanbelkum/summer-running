@@ -13,12 +13,12 @@ const AppHeader = ({teams, currentTeamIndex}) => {
     const teamPoints = teams.map(team => Object.values(team.events).reduce((total, num) => total + num, 0))
     return (
         <div className="app-header">
-            <Statistic>
+            <Statistic size="small">
                 <Statistic.Value>{Math.max(...teamPoints)}</Statistic.Value>
                 <Statistic.Label>Leader points</Statistic.Label>
             </Statistic>
             <Weather />
-            <Statistic>
+            <Statistic size="small">
                 <Statistic.Value>{teamPoints[currentTeamIndex]}</Statistic.Value>
                 <Statistic.Label>Team points</Statistic.Label>
             </Statistic>
