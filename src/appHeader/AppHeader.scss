@@ -1,8 +1,12 @@
 .app-header {
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  padding: 25px 0;
+  align-items: flex-start;
+  padding: 20px 0;
+
+  &--night {
+    background: linear-gradient(#454443, #FFF);
+  }
 
   .ui.statistic {
     margin-top: 0em;

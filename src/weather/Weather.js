@@ -9,6 +9,8 @@ const API_MAP = {
     'Rain': 'rainy',
     'Drizzle': 'rainy',
     'Thunderstorm': 'stormy',
+    'Clear': 'clear',
+    'Mist': 'rainy',
 };
 
 const Weather = () => {
@@ -21,14 +23,14 @@ const Weather = () => {
         }
     }, []);
     const geoFetch = position => {
-        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&APPID=${API_KEY}`)
+        fetch(`https://api.openweathermap.org/data/2.5/weather?units=imperial&lat=${position.coords.latitude}&lon=${position.coords.longitude}&APPID=${API_KEY}`)
             .then(rsp => {
                 rsp.json().then(data => setWeather(data))
             })
     };
     const stJoeFetch = () => {
         console.log('weather st joe');
-        fetch(`https://api.openweathermap.org/data/2.5/weather?zip=64506,us&APPID=${API_KEY}`)
+        fetch(`https://api.openweathermap.org/data/2.5/weather?units=imperial&zip=64506,us&APPID=${API_KEY}`)
             .then(rsp => {
                 rsp.json().then(data => setWeather(data))
             })
@@ -38,15 +40,16 @@ const Weather = () => {
         return null;
     }
 
-    let weatherMap = API_MAP[weather.weather[0].main] || weather.weather[0].main;
-    if (weatherMap === 'Clear') {
+    let weatherMap = API_MAP[weather.weather[0].main];
+    if (weatherMap === 'clear') {
         const time = new Date().getHours();
-        weatherMap = time < 8 || time > 20 ? 'starry' : 'sunny';
+        weatherMap = time < 6 || time > 21 ? 'starry' : 'sunny';
     }
 
     return (
         <div className="weather">
             <div className={weatherMap || 'sunny'} />
+            <strong className="weather__temp">{parseInt(weather.main.temp)}&deg;</strong>
         </div>
     );
 };

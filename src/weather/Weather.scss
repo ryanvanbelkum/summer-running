@@ -1,15 +1,22 @@
 .weather {
+  position: relative;
+
+  &__temp {
+    position: absolute;
+    top: 90%;
+    left: 20px;
+  }
+
   .sunny {
     animation: sunny 15s linear infinite;
-    background: linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 100%);
+    background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 100%);
     height: 140px;
     width: 20px;
-    margin-left: -15px;
-    //position: absolute;
-    //left: 90px;
-    //top: 20px;
+    position: absolute;
+    top: -25px;
+
     &:before {
-      background: linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(to top, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0) 100%);
       content: '';
       height: 140px;
       width: 20px;
@@ -220,40 +227,63 @@
 
   .starry {
     animation: starry_star 5s ease-in-out infinite;
-    background: #fcff58;
+    background: #FCFF58;
     border-radius: 50%;
-    box-shadow: #fcff58 26px 7px 0 -1px, rgba(255, 255, 255, 0.1) -36px -19px 0 -1px, rgba(255, 255, 255, 0.1) -51px -34px 0 -1px, #fcff58 -52px -62px 0 -1px, #FFFFFF 14px -37px, rgba(255, 255, 255, 0.1) 41px -19px, #FFFFFF 34px -50px, rgba(255, 255, 255, 0.1) 14px -71px 0 -1px, #FFFFFF 64px -21px 0 -1px, rgba(255, 255, 255, 0.1) 32px -85px 0 -1px, #FFFFFF 64px -90px, rgba(255, 255, 255, 0.1) 60px -67px 0 -1px, #FFFFFF 34px -127px, rgba(255, 255, 255, 0.1) -26px -103px 0 -1px;
+    box-shadow:
+            #FCFF58 26px 7px 0 -1px,
+            rgba(255,255,255,0.1) -36px -19px 0 -1px,
+            rgba(255,255,255,0.1) -51px -34px 0 -1px,
+            #FCFF58 -52px -62px 0 -1px,
+            #FCFF58 14px -37px,
+            rgba(255,255,255,0.1) 41px -19px,
+            #FCFF58 34px -50px,
+            rgba(255,255,255,0.1) 14px -71px 0 -1px,
+            #FCFF58 64px -21px 0 -1px,
+            rgba(255,255,255,0.1) 32px -85px 0 -1px,
+            #FCFF58 64px -90px,
+            rgba(255,255,255,0.1) 60px -67px 0 -1px,
+            #FCFF58 34px -127px,
+            rgba(255,255,255,0.1) -26px -103px 0 -1px;
     height: 4px;
     width: 4px;
     margin-left: -10px;
     opacity: 1;
-    //position: absolute;
-    //left: 777px;
-    //top: 150px;
-    &:after {
-      animation: starry 5s ease-in-out infinite;
-      border-radius: 50%;
-      box-shadow: #fcff58 -25px 0;
-      content: '';
-      height: 100px;
-      width: 100px;
-      position: absolute;
-      top: -106px;
-      transform: rotate(-5deg);
-      transform-origin: 0 50%;
-    }
+    position: absolute;
+    top: 100px;
+  }
+  .starry:after {
+    animation: starry 5s ease-in-out infinite;
+    border-radius: 50%;
+    box-shadow: #FCFF58 -25px 0;
+    content: '';
+    height: 100px;
+    width: 100px;
+    position: absolute;
+    top: -106px;
+    transform: rotate(-5deg);
+    transform-origin: 0 50%;
   }
 
   @keyframes starry {
-    50% {
-      transform: rotate(10deg);
-    }
+    50% { transform: rotate(10deg); }
   }
-
-
   @keyframes starry_star {
     50% {
-      box-shadow: rgba(255, 255, 255, 0.1) 26px 7px 0 -1px, #fcff58 -36px -19px 0 -1px, #fcff58 -51px -34px 0 -1px, rgba(255, 255, 255, 0.1) -52px -62px 0 -1px, rgba(255, 255, 255, 0.1) 14px -37px, #fcff58 41px -19px, rgba(255, 255, 255, 0.1) 34px -50px, #fcff58 14px -71px 0 -1px, rgba(255, 255, 255, 0.1) 64px -21px 0 -1px, #fcff58 32px -85px 0 -1px, rgba(255, 255, 255, 0.1) 64px -90px, #fcff58 60px -67px 0 -1px, rgba(255, 255, 255, 0.1) 34px -127px, #fcff58 -26px -103px 0 -1px;
+      box-shadow:
+              rgba(255,255,255,0.1) 26px 7px 0 -1px,
+              #FCFF58 -36px -19px 0 -1px,
+              #FCFF58 -51px -34px 0 -1px,
+              rgba(255,255,255,0.1) -52px -62px 0 -1px,
+              rgba(255,255,255,0.1) 14px -37px,
+              #FCFF58 41px -19px,
+              rgba(255,255,255,0.1) 34px -50px,
+              #FCFF58 14px -71px 0 -1px,
+              rgba(255,255,255,0.1) 64px -21px 0 -1px,
+              #FCFF58 32px -85px 0 -1px,
+              rgba(255,255,255,0.1) 64px -90px,
+              #FCFF58 60px -67px 0 -1px,
+              rgba(255,255,255,0.1) 34px -127px,
+              #FCFF58 -26px -103px 0 -1px;
     }
   }
 
@@ -267,7 +297,7 @@
     box-shadow: #222222 65px -15px 0 -5px,  #222222 25px -25px,  #222222 30px 10px,  #222222 60px 15px 0 -10px,  #222222 85px 5px 0 -5px;
     height: 50px;
     width: 50px;
-    margin-left: -70px;
+    margin-left: -60px;
     //position: absolute;
     //left: 947px;
     //top: 70px;
@@ -344,9 +374,9 @@
 
   .snowy {
     animation: snowy 5s ease-in-out infinite 1s;
-    background: #FFFFFF;
+    background: #d5d5d5;
     border-radius: 50%;
-    box-shadow: #FFFFFF 65px -15px 0 -5px,  #FFFFFF 25px -25px,  #FFFFFF 30px 10px,  #FFFFFF 60px 15px 0 -10px,  #FFFFFF 85px 5px 0 -5px;
+    box-shadow: #d5d5d5 65px -15px 0 -5px,  #d5d5d5 25px -25px,  #d5d5d5 30px 10px,  #d5d5d5 60px 15px 0 -10px,  #d5d5d5 85px 5px 0 -5px;
     display: block;
     height: 50px;
     width: 50px;
@@ -478,28 +508,5 @@
       top: -130px;
       left: 50px;
     }
-  }
-
-  a {
-    position: absolute;
-    top: 30px;
-    left: 60px;
-    color: #777;
-    text-decoration: none;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    display: none;
-  }
-
-  .container {
-    background: linear-gradient(left, #00BBFF, #00BBFF 14.3%, #2EB5E5 14.3%, #2EB5E5 28.6%, #E6E6E6 28.6%, #E6E6E6 42.9%, #F3D166 42.9%, #F3D166 57.2%, #222233 57.2%, #222233 71.5%, #444444 71.5%, #444444 85.8%, #85DB8C 85.8%);
-    transform: scale(0.9);
-    width: 1200px;
-    position: absolute;
-    height: 210px;
-    left: 50%;
-    top: 50%;
-    margin: -65px -600px;
   }
 }

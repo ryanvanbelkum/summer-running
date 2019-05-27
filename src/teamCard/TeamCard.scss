@@ -1,3 +1,9 @@
 .team-card {
-  padding: 0 5px 50px;
+  padding: 0 10px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+
+  table.table {
+    padding-bottom: 40px;
+  }
 }

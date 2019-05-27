@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Menu} from 'semantic-ui-react'
+import {debounce} from 'lodash';
 
 import AppHeader from './appHeader/AppHeader';
 import Loader from './loader/Loader';
@@ -10,15 +11,25 @@ import '../node_modules/semantic-ui-css/semantic.css';
 import './App.scss';
 
 function App() {
+    let vh = window.innerHeight * 0.01;
+    const resize = debounce(() => {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }, 500);
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    window.addEventListener('resize', resize);
+
     const [teams, setTeams] = useState([]);
     const [items, setItems] = useState([]);
-    const [currentTab, setCurrentTab] = useState(teams);
+    const [currentTab, setCurrentTab] = useState(null);
     const [loggedIn, setLoggedIn] = useState(false);
+    const getCurrentTeam = () => {
+        return teams.find(team => team.id === currentTab) || teams[0];
+    };
     useEffect(() => {
         firestore.collection("teams").onSnapshot((snapshot) => {
             const teams = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
             setTeams(teams);
-            setCurrentTab(teams[0].teamName)
         });
         firestore.collection("items").onSnapshot((snapshot) => {
             setItems(snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()})));
@@ -27,29 +38,37 @@ function App() {
 
     auth.onAuthStateChanged(function (user) {
         setLoggedIn(!!user);
+        resize();
     });
 
-    const handleTabChange = (e, {name}) => setCurrentTab(name);
-    const currentTeam = teams.find(team => team.teamName === currentTab);
+    const currentTeam = getCurrentTeam();
     return (
         <div className="app-container">
-            {!teams.length && <Loader />}
-            <header>
-                <AppHeader teams={teams} currentTeamIndex={teams.findIndex(team => team.teamName === currentTab) || 0}/>
-                <Menu pointing secondary>
-                    {teams.map(team => (
-                            <Menu.Item
-                                key={team.teamName}
-                                name={team.teamName}
-                                active={currentTab === team.teamName}
-                                onClick={handleTabChange}
-                            />
-                        )
-                    )}
-                </Menu>
-            </header>
-            <TeamCard isAuthed={loggedIn} team={currentTeam} items={items}/>
-            <Login isAuthed={loggedIn}/>
+            {teams.length ? <React.Fragment>
+                <header>
+                    <AppHeader teams={teams} currentTeam={currentTeam}/>
+                    <Menu pointing secondary>
+                        {teams.map(team => (
+                                <Menu.Item
+                                    key={team.id}
+                                    active={currentTeam.id === team.id}
+                                    onClick={() => setCurrentTab(team.id)}
+                                    style={{borderColor: currentTeam.id === team.id && team.borderColorHash}}
+                                >
+                                    <span className="menu__item" style={
+                                        {
+                                            backgroundColor: team.primaryColorHash,
+                                            border: `2px solid ${team.borderColorHash}`
+                                        }
+                                    } />
+                                </Menu.Item>
+                            )
+                        )}
+                    </Menu>
+                </header>
+                <TeamCard isAuthed={loggedIn} team={currentTeam} items={items}/>
+                <Login isAuthed={loggedIn}/>
+            </React.Fragment> : <Loader/>}
         </div>
     );
 }
